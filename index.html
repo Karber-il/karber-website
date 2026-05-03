@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karber | ניקוי תעשייתי בפיקוח הנדסי</title>
+  <meta name="description" content="Karber מספקת פתרונות ניקוי תעשייתי מלאים לתעשייה הכבדה והקלה, תחת פיקוח הנדסי. קרח יבש, לחץ מים אולטרה גבוה, ניקוי אברזיבי.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heebo: ['Heebo', 'sans-serif'] },
+          colors: {
+            accent: '#FFCA1E',
+            'bg-dark': '#4D4D4D',
+            'bg-foot': '#1A1A1A',
+          },
+          borderRadius: {
+            DEFAULT: '4px', sm: '2px', md: '4px',
+            lg: '4px', xl: '4px', '2xl': '4px', full: '9999px',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    :root { --a11y-font-scale: 1; }
+
+    *, *::before, *::after {
+      font-family: 'Heebo', sans-serif;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+      font-size: calc(16px * var(--a11y-font-scale));
+    }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -70px;
+      right: 1rem;
+      z-index: 999;
+      background: #FFCA1E;
+      color: #1A1A1A;
+      font-weight: 700;
+      padding: 0.5rem 1.25rem;
+      border-radius: 0 0 4px 4px;
+      text-decoration: none;
+      transition: top 0.15s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Global keyboard focus ring ── */
+    :focus-visible {
+      outline: 3px solid #FFCA1E !important;
+      outline-offset: 3px !important;
+    }
+
+    /* ── Scroll animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.10s; }
+    .delay-2 { transition-delay: 0.20s; }
+    .delay-3 { transition-delay: 0.30s; }
+    .delay-4 { transition-delay: 0.40s; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, opacity 0.25s ease-out;
+    }
+    #mobile-menu.open { max-height: 480px; opacity: 1; }
+
+    /* ── Hero scroll bounce ── */
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(9px); }
+    }
+    .bob { animation: bob 2.2s ease-in-out infinite; }
+
+    /* ── Card image zoom ── */
+    .card-img { transition: transform 0.35s ease; }
+    .card-wrap:hover .card-img { transform: scale(1.04); }
+
+    /* ── Input focus ── */
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #FFCA1E;
+      box-shadow: 0 0 0 3px rgba(255,202,30,0.2);
+    }
+
+    /* ── Process connector (desktop) ── */
+    .step-connector {
+      position: absolute;
+      top: 44px;
+      right: calc(33.333% + 12px);
+      left: calc(33.333% + 12px);
+      height: 1px;
+      background: #E5E5E5;
+      pointer-events: none;
+    }
+
+    /* ── Accessibility widget ── */
+    #a11y-panel { display: none; }
+    #a11y-panel.open { display: block; }
+
+    .a11y-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.45rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8125rem;
+      color: #1A1A1A;
+      background: #FAFAFA;
+      border: 1px solid #E5E5E5;
+      cursor: pointer;
+      margin-bottom: 0.4rem;
+      transition: background 0.15s, border-color 0.15s;
+      text-align: right;
+    }
+    .a11y-toggle:hover { border-color: #FFCA1E; }
+    .a11y-toggle[aria-checked="true"] {
+      background: #1A1A1A;
+      color: #FFCA1E;
+      border-color: #1A1A1A;
+    }
+    .a11y-toggle[aria-checked="true"] .toggle-dot {
+      background: #FFCA1E;
+    }
+    .toggle-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #CCCCCC;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    /* ── Accessibility body classes ── */
+    body.pause-animations *,
+    body.pause-animations *::before,
+    body.pause-animations *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    body.pause-animations .fade-up { opacity: 1 !important; transform: none !important; }
+
+    body.high-contrast { filter: contrast(2); }
+    body.high-contrast img { filter: contrast(0.5); }
+
+    body.highlight-links a {
+      text-decoration: underline !important;
+      text-decoration-color: #FFCA1E !important;
+      text-underline-offset: 3px !important;
+    }
+
+    /* ── Reduced motion (OS preference) ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .fade-up { opacity: 1; transform: none; }
+      .bob { animation: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-[#1A1A1A] antialiased">
+
+<!-- Skip to main content (visually hidden until focused) -->
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+
+<!-- ════════════════════════════
+     HEADER
+════════════════════════════ -->
+<header id="site-header"
+  class="fixed inset-x-0 top-0 z-50 bg-white/92 backdrop-blur-sm border-b border-[#E5E5E5] transition-shadow duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+
+    <!-- Logo -->
+    <a href="#" class="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[#FFCA1E] focus:ring-offset-2 rounded-[4px]">
+      <img src="images/logo.png" alt="Karber - חזרה לדף הבית" class="h-14 w-auto"
+           onerror="this.style.display='none'">
+    </a>
+
+    <!-- Desktop nav -->
+    <nav aria-label="ניווט ראשי" class="hidden md:flex items-center gap-7">
+      <a href="#about"    class="text-sm font-medium text-[#666666] hover:text-[#1A1A1A] transition-colors">אודות</a>
+      <a href="#services" class="text-sm font-medium text-[#666666] hover:text-[#1A1A1A] transition-colors">שירותים</a>
+      <a href="#results"  class="text-sm font-medium text-[#666666] hover:text-[#1A1A1A] transition-colors">תוצאות</a>
+      <a href="#why"      class="text-sm font-medium text-[#666666] hover:text-[#1A1A1A] transition-colors">למה KARBER</a>
+      <a href="#process"  class="text-sm font-medium text-[#666666] hover:text-[#1A1A1A] transition-colors">תהליך</a>
+      <a href="#contact"
+         class="bg-[#FFCA1E] text-[#1A1A1A] text-sm font-bold px-5 py-2 rounded-[4px]
+                hover:bg-[#f0bb00] hover:scale-[1.02] transition-all
+                focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] focus:ring-offset-2">
+        צרו קשר
+      </a>
+    </nav>
+
+    <!-- Hamburger -->
+    <button id="hamburger"
+            aria-label="פתח תפריט ניווט"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            class="md:hidden p-2 text-[#1A1A1A] hover:text-[#FFCA1E] transition-colors
+                   focus:outline-none focus:ring-2 focus:ring-[#FFCA1E] rounded-[4px]">
+      <i data-lucide="menu" class="w-6 h-6" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <!-- Mobile nav drawer -->
+  <div id="mobile-menu"
+       role="navigation"
+       aria-label="ניווט נייד"
+       class="md:hidden border-t border-[#E5E5E5] bg-white">
+    <div class="px-4 py-5 flex flex-col gap-2">
+      <a href="#about"    class="mob-link py-2.5 px-3 text-sm font-medium text-[#666666] rounded-[4px] hover:bg-[#FAFAFA]">אודות</a>
+      <a href="#services" class="mob-link py-2.5 px-3 text-sm font-medium text-[#666666] rounded-[4px] hover:bg-[#FAFAFA]">שירותים</a>
+      <a href="#results"  class="mob-link py-2.5 px-3 text-sm font-medium text-[#666666] rounded-[4px] hover:bg-[#FAFAFA]">תוצאות</a>
+      <a href="#why"      class="mob-link py-2.5 px-3 text-sm font-medium text-[#666666] rounded-[4px] hover:bg-[#FAFAFA]">למה KARBER</a>
+      <a href="#process"  class="mob-link py-2.5 px-3 text-sm font-medium text-[#666666] rounded-[4px] hover:bg-[#FAFAFA]">תהליך</a>
+      <div class="border-t border-[#E5E5E5] mt-2 pt-4 flex flex-col gap-3">
+        <a href="tel:0524778604"
+           aria-label="התקשר עכשיו: 052-477-8604"
+           class="flex items-center gap-2 py-2.5 px-3 text-sm font-medium text-[#1A1A1A]">
+          <i data-lucide="phone" class="w-4 h-4 text-[#FFCA1E]" aria-hidden="true"></i>
+          <span dir="ltr">052-477-8604</span>
+        </a>
+        <a href="#contact"
+           class="mob-link bg-[#FFCA1E] text-[#1A1A1A] text-sm font-bold text-center py-3 px-4 rounded-[4px] hover:bg-[#f0bb00] transition-colors">
+          שיחת ייעוץ עם מהנדס
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════
+     MAIN CONTENT
+════════════════════════════ -->
+<main id="main-content">
+
+<!-- ════════════════════════════
+     §1 HERO
+════════════════════════════ -->
+<section id="hero" class="relative min-h-screen" style="min-height:100svh;" aria-label="כותרת ראשית">
+
+  <!-- BG image + overlay -->
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <img src="images/3.jpeg" alt=""
+         class="w-full h-full object-cover object-center" loading="eager" fetchpriority="high">
+    <div class="absolute inset-0" style="background:rgba(26,26,26,0.65);"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center text-center px-4
+              min-h-screen" style="min-height:100svh; padding-top:64px;">
+
+    <h1 class="leading-[1.1] mb-5 max-w-3xl">
+      <span class="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-wider"
+            style="color:#FFCA1E; letter-spacing:0.06em;">KARBER</span>
+      <span class="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mt-2">ניקוי תעשייתי</span>
+    </h1>
+
+    <p class="text-base sm:text-lg md:text-xl text-white/80 font-normal max-w-xl mb-10 leading-relaxed">
+      טכנולוגיות ניקוי מתקדמות לתעשייה הישראלית
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full max-w-sm sm:max-w-none sm:w-auto mb-8">
+      <a href="#contact"
+         class="w-full sm:w-auto bg-[#FFCA1E] text-[#1A1A1A] font-bold text-base
+                px-8 py-4 rounded-[4px] text-center
+                hover:bg-[#f0bb00] hover:scale-[1.02] transition-all
+                focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent">
+        שיחת ייעוץ עם מהנדס
+      </a>
+      <a href="#services"
+         class="w-full sm:w-auto border-2 border-white/80 text-white font-medium text-base
+                px-8 py-4 rounded-[4px] text-center
+                hover:bg-white/10 transition-all
+                focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
+        השירותים שלנו
+      </a>
+    </div>
+
+    <!-- Phone -->
+    <a href="tel:0524778604"
+       aria-label="התקשר עכשיו: 052-477-8604"
+       class="inline-flex items-center gap-2 text-white/85 font-medium text-lg
+              hover:text-white transition-colors">
+      <i data-lucide="phone" class="w-5 h-5" aria-hidden="true"></i>
+      <span dir="ltr">052-477-8604</span>
+    </a>
+  </div>
+
+  <!-- Scroll indicator (decorative) -->
+  <div class="absolute bottom-8 left-1/2 bob z-10 text-white/50" aria-hidden="true">
+    <i data-lucide="chevron-down" class="w-8 h-8"></i>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     §2 ABOUT
+════════════════════════════ -->
+<section id="about" class="py-24 bg-white" aria-labelledby="about-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 xl:gap-20 items-center">
+
+      <!-- Text -->
+      <div class="fade-up">
+        <h2 id="about-heading" class="text-3xl sm:text-4xl font-black text-[#1A1A1A] leading-tight mb-8">
+          מעטפת שירות מלאה לתעשייה הכבדה והקלה
+        </h2>
+        <div class="space-y-5 text-[#666666] text-[15px] sm:text-base leading-relaxed">
+          <p>
+            Karber מספקת לחברות ניהול, תאגידים ומפעלי תעשייה שקט תפעולי מלא.
+            ברשותנו טכנולוגיות ניקוי מגוונות וייעודיות לכל מטרה.
+          </p>
+          <p>
+            באמצעות ניתוח מקדים על ידי מהנדס, אנו מתאימים את שיטת ההתערבות המדויקת
+            ביותר לכל תשתית הצריכה ניקיון ייעודי.
+          </p>
+          <p>
+            עמידה בתקני איכות מחמירים וחיסכון דרמטי בזמני השבתת מערכות.
+          </p>
+        </div>
+        <div class="mt-10">
+          <a href="#contact"
+             class="inline-flex items-center gap-2 bg-[#FFCA1E] text-[#1A1A1A]
+                    font-bold px-7 py-3.5 rounded-[4px]
+                    hover:bg-[#f0bb00] hover:scale-[1.02] transition-all
+                    focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] focus:ring-offset-2">
+            <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i>
+            דברו איתנו
+          </a>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="fade-up delay-2">
+        <div class="relative">
+          <img src="images/38.jpeg"
+               alt="מתקן תעשייתי - Karber מספקת ניקוי מקצועי לתשתיות כבדות"
+               class="w-full h-72 sm:h-80 lg:h-[460px] object-cover rounded-[4px] border border-[#E5E5E5]">
+          <div class="absolute -bottom-3 -right-3 w-20 h-20 pointer-events-none" aria-hidden="true"
+               style="border-bottom:4px solid #FFCA1E; border-right:4px solid #FFCA1E; z-index:-1;"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     §3 SERVICES
+════════════════════════════ -->
+<section id="services" class="py-24 bg-[#FAFAFA]" aria-labelledby="services-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 fade-up">
+      <h2 id="services-heading" class="text-3xl sm:text-4xl font-black text-[#1A1A1A] mb-3">השירותים שלנו</h2>
+      <p class="text-[#666666] text-lg">טכנולוגיות ניקוי ייעודיות לכל אתגר תעשייתי</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <!-- Card 1: Dry Ice -->
+      <article class="card-wrap fade-up delay-1 bg-white border border-[#E5E5E5] rounded-[4px]
+                      overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+        <div class="overflow-hidden aspect-video">
+          <img src="images/5.jpeg" alt="ניקוי בקרח יבש - ציוד תעשייתי לפני ואחרי הטיפול"
+               class="card-img w-full h-full object-cover">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-[#FFCA1E]/15 p-2 rounded-[4px] flex-shrink-0" aria-hidden="true">
+              <i data-lucide="snowflake" class="w-5 h-5 text-[#1A1A1A]"></i>
+            </div>
+            <h3 class="font-bold text-[#1A1A1A] text-sm leading-snug">ניקוי בקרח יבש (CO₂)</h3>
+          </div>
+          <p class="text-[#666666] text-sm leading-relaxed mb-5 flex-1">
+            טכנולוגיה מתקדמת לניקוי ציוד רגיש, ארונות חשמל תחת מתח חי, וחוות שרתים.
+            ללא מים, ללא כימיקלים, ללא הולכת חשמל.
+          </p>
+          <a href="#contact"
+             class="inline-flex items-center gap-1.5 text-sm font-medium text-[#1A1A1A]
+                    hover:text-[#FFCA1E] transition-colors group">
+            קרא עוד
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1" aria-hidden="true"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2: Electrical panels -->
+      <article class="card-wrap fade-up delay-2 bg-white border border-[#E5E5E5] rounded-[4px]
+                      overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+        <div class="overflow-hidden aspect-video">
+          <img src="images/17.jpeg" alt="ניקוי לוחות חשמל תחת מתח - ארון חשמל תעשייתי"
+               class="card-img w-full h-full object-cover">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-[#FFCA1E]/15 p-2 rounded-[4px] flex-shrink-0" aria-hidden="true">
+              <i data-lucide="zap" class="w-5 h-5 text-[#1A1A1A]"></i>
+            </div>
+            <h3 class="font-bold text-[#1A1A1A] text-sm leading-snug">ניקוי לוחות חשמל תחת מתח</h3>
+          </div>
+          <p class="text-[#666666] text-sm leading-relaxed mb-5 flex-1">
+            טיפול בארונות חשמל, לוחות פיקוד ומסדרי מתח ללא צורך בהשבתת המערכת,
+            באמצעות טכנולוגיית ניקוי בקרח יבש.
+          </p>
+          <a href="#contact"
+             class="inline-flex items-center gap-1.5 text-sm font-medium text-[#1A1A1A]
+                    hover:text-[#FFCA1E] transition-colors group">
+            קרא עוד
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1" aria-hidden="true"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3: Ultra-high pressure water -->
+      <article class="card-wrap fade-up delay-3 bg-white border border-[#E5E5E5] rounded-[4px]
+                      overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+        <div class="overflow-hidden aspect-video">
+          <img src="images/30.jpeg" alt="ניקוי בלחץ מים אולטרה גבוה - צנרת ומיכלים תעשייתיים"
+               class="card-img w-full h-full object-cover">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-[#FFCA1E]/15 p-2 rounded-[4px] flex-shrink-0" aria-hidden="true">
+              <i data-lucide="droplets" class="w-5 h-5 text-[#1A1A1A]"></i>
+            </div>
+            <h3 class="font-bold text-[#1A1A1A] text-sm leading-snug">ניקוי בלחץ מים אולטרה גבוה</h3>
+          </div>
+          <p class="text-[#666666] text-sm leading-relaxed mb-5 flex-1">
+            עבודה בלחצים של 500–3000 בר. הסרת צבע, חלודה וציפויים.
+            ניקוי מחליפי חום, צנרת ומיכלים תעשייתיים.
+          </p>
+          <a href="#contact"
+             class="inline-flex items-center gap-1.5 text-sm font-medium text-[#1A1A1A]
+                    hover:text-[#FFCA1E] transition-colors group">
+            קרא עוד
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1" aria-hidden="true"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 4: Abrasive -->
+      <article class="card-wrap fade-up delay-4 bg-white border border-[#E5E5E5] rounded-[4px]
+                      overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+        <div class="overflow-hidden aspect-video">
+          <img src="images/20.jpeg" alt="ניקוי אברזיבי והכנת שטח - Shot Blasting לפני צביעה"
+               class="card-img w-full h-full object-cover">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-[#FFCA1E]/15 p-2 rounded-[4px] flex-shrink-0" aria-hidden="true">
+              <i data-lucide="layers" class="w-5 h-5 text-[#1A1A1A]"></i>
+            </div>
+            <h3 class="font-bold text-[#1A1A1A] text-sm leading-snug">ניקוי אברזיבי והכנת שטח</h3>
+          </div>
+          <p class="text-[#666666] text-sm leading-relaxed mb-5 flex-1">
+            טכנולוגיית Shot Blasting והתזת אגרגטים. הכנת משטחים לצביעה.
+            ניקוי אברזיבי ללא אבק במעגל סגור.
+          </p>
+          <a href="#contact"
+             class="inline-flex items-center gap-1.5 text-sm font-medium text-[#1A1A1A]
+                    hover:text-[#FFCA1E] transition-colors group">
+            קרא עוד
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1" aria-hidden="true"></i>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     §4 BEFORE / AFTER
+════════════════════════════ -->
+<section id="results" class="py-24 bg-white" aria-labelledby="results-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 fade-up">
+      <h2 id="results-heading" class="text-3xl sm:text-4xl font-black text-[#1A1A1A]">פרויקטים נבחרים מהשטח</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+
+      <div class="fade-up delay-1">
+        <div class="overflow-hidden rounded-[4px] border border-[#E5E5E5]">
+          <img src="images/39.jpeg"
+               alt="לפני ואחרי: ניקוי רכיבי ציוד תעשייתי"
+               class="w-full aspect-[4/3] object-cover hover:scale-[1.03] transition-transform duration-300">
+        </div>
+        <p class="mt-4 text-center text-sm text-[#666666] font-medium">ניקוי רכיבי ציוד תעשייתי</p>
+      </div>
+
+      <div class="fade-up delay-2">
+        <div class="overflow-hidden rounded-[4px] border border-[#E5E5E5]">
+          <img src="images/41.jpeg"
+               alt="לפני ואחרי: ניקוי משטחים תעשייתיים"
+               class="w-full aspect-[4/3] object-cover hover:scale-[1.03] transition-transform duration-300">
+        </div>
+        <p class="mt-4 text-center text-sm text-[#666666] font-medium">ניקוי משטחים תעשייתיים</p>
+      </div>
+
+      <div class="fade-up delay-3">
+        <div class="overflow-hidden rounded-[4px] border border-[#E5E5E5]">
+          <img src="images/43.jpeg"
+               alt="לפני ואחרי: ניקוי תשתיות במפעל"
+               class="w-full aspect-[4/3] object-cover hover:scale-[1.03] transition-transform duration-300">
+        </div>
+        <p class="mt-4 text-center text-sm text-[#666666] font-medium">ניקוי תשתיות במפעל</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     §5 WHY KARBER  (dark)
+════════════════════════════ -->
+<section id="why" class="py-24 bg-[#4D4D4D]" aria-labelledby="why-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 fade-up">
+      <h2 id="why-heading" class="text-3xl sm:text-4xl font-black text-white mb-4">
+        למה בוחרים <span style="color:#FFCA1E;">KARBER</span>
+      </h2>
+      <div class="w-10 h-1 bg-[#FFCA1E] mx-auto" aria-hidden="true"></div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <div class="fade-up delay-1 text-center px-4">
+        <div class="inline-flex items-center justify-center w-14 h-14
+                    border border-white/20 bg-white/6 rounded-[4px] mb-5" aria-hidden="true">
+          <i data-lucide="hard-hat" class="w-7 h-7 text-[#FFCA1E]"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-3">פיקוח הנדסי</h3>
+        <p class="text-white/85 text-sm leading-relaxed">
+          כל פרויקט בליווי מהנדס חומרים, מאבחון ראשוני ועד ביצוע ובקרה.
+        </p>
+      </div>
+
+      <div class="fade-up delay-2 text-center px-4">
+        <div class="inline-flex items-center justify-center w-14 h-14
+                    border border-white/20 bg-white/6 rounded-[4px] mb-5" aria-hidden="true">
+          <i data-lucide="cpu" class="w-7 h-7 text-[#FFCA1E]"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-3">טכנולוגיות מתקדמות</h3>
+        <p class="text-white/85 text-sm leading-relaxed">
+          ציוד בלעדי וייעודי, טכנולוגיות הניקוי המתקדמות ביותר בישראל.
+        </p>
+      </div>
+
+      <div class="fade-up delay-3 text-center px-4">
+        <div class="inline-flex items-center justify-center w-14 h-14
+                    border border-white/20 bg-white/6 rounded-[4px] mb-5" aria-hidden="true">
+          <i data-lucide="shield-check" class="w-7 h-7 text-[#FFCA1E]"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-3">עמידה בתקנים</h3>
+        <p class="text-white/85 text-sm leading-relaxed">
+          תקני איכות מחמירים, נהלי בטיחות ובקרת איכות פנים-ארגונית.
+        </p>
+      </div>
+
+      <div class="fade-up delay-4 text-center px-4">
+        <div class="inline-flex items-center justify-center w-14 h-14
+                    border border-white/20 bg-white/6 rounded-[4px] mb-5" aria-hidden="true">
+          <i data-lucide="target" class="w-7 h-7 text-[#FFCA1E]"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-3">התאמה פרטנית</h3>
+        <p class="text-white/85 text-sm leading-relaxed">
+          ניתוח מקדים לכל אתגר, ובחירת שיטת ההתערבות המדויקת ביותר.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     §6 PROCESS
+════════════════════════════ -->
+<section id="process" class="py-24 bg-white" aria-labelledby="process-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 fade-up">
+      <h2 id="process-heading" class="text-3xl sm:text-4xl font-black text-[#1A1A1A] mb-3">כך אנחנו עובדים</h2>
+      <p class="text-[#666666] text-lg">תהליך מסודר מאבחון ועד תוצאה</p>
+    </div>
+
+    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="step-connector hidden md:block" aria-hidden="true"></div>
+
+      <!-- Step 01 -->
+      <div class="fade-up delay-1">
+        <div class="bg-white border border-[#E5E5E5] rounded-[4px] p-7 text-center h-full">
+          <div class="text-[56px] leading-none font-black text-[#FFCA1E] mb-4" aria-hidden="true">01</div>
+          <div class="inline-flex items-center justify-center w-12 h-12 bg-[#FAFAFA] rounded-[4px] mb-4" aria-hidden="true">
+            <i data-lucide="search" class="w-6 h-6 text-[#1A1A1A]"></i>
+          </div>
+          <h3 class="font-bold text-[#1A1A1A] text-lg mb-2">ניתוח הנדסי</h3>
+          <p class="text-[#666666] text-sm leading-relaxed">
+            הבנת הצורך והאתגר, אבחון ההתערבות הנדרשת
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 02 -->
+      <div class="fade-up delay-2">
+        <div class="bg-white border border-[#E5E5E5] rounded-[4px] p-7 text-center h-full">
+          <div class="text-[56px] leading-none font-black text-[#FFCA1E] mb-4" aria-hidden="true">02</div>
+          <div class="inline-flex items-center justify-center w-12 h-12 bg-[#FAFAFA] rounded-[4px] mb-4" aria-hidden="true">
+            <i data-lucide="settings" class="w-6 h-6 text-[#1A1A1A]"></i>
+          </div>
+          <h3 class="font-bold text-[#1A1A1A] text-lg mb-2">התאמת פתרון</h3>
+          <p class="text-[#666666] text-sm leading-relaxed">
+            בחירת הטכנולוגיה והכלים המתאימים ביותר לפרויקט
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 03 -->
+      <div class="fade-up delay-3">
+        <div class="bg-white border border-[#E5E5E5] rounded-[4px] p-7 text-center h-full">
+          <div class="text-[56px] leading-none font-black text-[#FFCA1E] mb-4" aria-hidden="true">03</div>
+          <div class="inline-flex items-center justify-center w-12 h-12 bg-[#FAFAFA] rounded-[4px] mb-4" aria-hidden="true">
+            <i data-lucide="check-circle" class="w-6 h-6 text-[#1A1A1A]"></i>
+          </div>
+          <h3 class="font-bold text-[#1A1A1A] text-lg mb-2">ביצוע ובקרה</h3>
+          <p class="text-[#666666] text-sm leading-relaxed">
+            עבודה תחת תקנים, בליווי מהנדס ומעקב תוצאות
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     §7 CONTACT
+════════════════════════════ -->
+<section id="contact" class="py-24 bg-[#FAFAFA]" aria-labelledby="contact-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 fade-up">
+      <h2 id="contact-heading" class="text-3xl sm:text-4xl font-black text-[#1A1A1A] mb-3">
+        מוכנים לפתור את אתגר הניקוי הבא?
+      </h2>
+      <p class="text-[#666666] text-lg">השאירו פרטים ונחזור אליכם בהקדם</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+
+      <!-- Form -->
+      <div class="fade-up bg-white border border-[#E5E5E5] rounded-[4px] p-7 sm:p-9">
+        <form action="mailto:info@karber.co.il" method="POST" enctype="text/plain" novalidate>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label for="f-name" class="block text-sm font-medium text-[#1A1A1A] mb-2">
+                שם מלא <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <input type="text" id="f-name" name="שם מלא"
+                     required aria-required="true"
+                     placeholder="ישראל ישראלי"
+                     class="w-full border border-[#E5E5E5] rounded-[4px]
+                            px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA]
+                            transition-colors">
+            </div>
+            <div>
+              <label for="f-company" class="block text-sm font-medium text-[#1A1A1A] mb-2">
+                שם החברה <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <input type="text" id="f-company" name="שם החברה"
+                     required aria-required="true"
+                     placeholder="שם החברה שלכם"
+                     class="w-full border border-[#E5E5E5] rounded-[4px]
+                            px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA]
+                            transition-colors">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label for="f-phone" class="block text-sm font-medium text-[#1A1A1A] mb-2">
+                טלפון <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <input type="tel" id="f-phone" name="טלפון"
+                     required aria-required="true" dir="ltr"
+                     placeholder="050-000-0000"
+                     class="w-full border border-[#E5E5E5] rounded-[4px]
+                            px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA]
+                            transition-colors">
+            </div>
+            <div>
+              <label for="f-email" class="block text-sm font-medium text-[#1A1A1A] mb-2">
+                דוא"ל <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <input type="email" id="f-email" name="דוא-ל"
+                     required aria-required="true" dir="ltr"
+                     placeholder="email@company.co.il"
+                     class="w-full border border-[#E5E5E5] rounded-[4px]
+                            px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA]
+                            transition-colors">
+            </div>
+          </div>
+
+          <div class="mb-7">
+            <label for="f-message" class="block text-sm font-medium text-[#1A1A1A] mb-2">תיאור הצורך</label>
+            <textarea id="f-message" name="תיאור הצורך" rows="4"
+                      placeholder="תארו בקצרה את האתגר או השירות הנדרש"
+                      class="w-full border border-[#E5E5E5] rounded-[4px]
+                             px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA]
+                             transition-colors resize-none"></textarea>
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-[#FFCA1E] text-[#1A1A1A] font-bold text-base
+                         py-4 rounded-[4px] flex items-center justify-center gap-2
+                         hover:bg-[#f0bb00] hover:scale-[1.01] transition-all
+                         focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] focus:ring-offset-2">
+            <i data-lucide="send" class="w-5 h-5" aria-hidden="true"></i>
+            שלחו פנייה
+          </button>
+
+        </form>
+      </div>
+
+      <!-- Contact details -->
+      <div class="fade-up delay-2 flex flex-col gap-7">
+
+        <div>
+          <h3 class="text-xl font-bold text-[#1A1A1A] mb-6">פרטי התקשרות</h3>
+          <div class="space-y-5">
+
+            <a href="tel:0524778604"
+               aria-label="התקשר עכשיו: 052-477-8604"
+               class="flex items-center gap-4 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-[#FFCA1E]/15 rounded-[4px]
+                          flex items-center justify-center
+                          group-hover:bg-[#FFCA1E]/30 transition-colors" aria-hidden="true">
+                <i data-lucide="phone" class="w-5 h-5 text-[#1A1A1A]"></i>
+              </div>
+              <div>
+                <div class="text-xs text-[#666666] mb-0.5">טלפון</div>
+                <div class="text-xl font-bold text-[#1A1A1A]" dir="ltr">052-477-8604</div>
+              </div>
+            </a>
+
+            <a href="mailto:info@karber.co.il"
+               class="flex items-center gap-4 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-[#FFCA1E]/15 rounded-[4px]
+                          flex items-center justify-center
+                          group-hover:bg-[#FFCA1E]/30 transition-colors" aria-hidden="true">
+                <i data-lucide="mail" class="w-5 h-5 text-[#1A1A1A]"></i>
+              </div>
+              <div>
+                <div class="text-xs text-[#666666] mb-0.5">דוא"ל</div>
+                <div class="text-base font-medium text-[#1A1A1A]" dir="ltr">info@karber.co.il</div>
+              </div>
+            </a>
+
+            <div class="flex items-center gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-[#FFCA1E]/15 rounded-[4px]
+                          flex items-center justify-center" aria-hidden="true">
+                <i data-lucide="map-pin" class="w-5 h-5 text-[#1A1A1A]"></i>
+              </div>
+              <div>
+                <div class="text-xs text-[#666666] mb-0.5">אזור פעילות</div>
+                <div class="text-base font-medium text-[#1A1A1A]">כל הארץ</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- WhatsApp CTA card -->
+        <div class="border border-[#E5E5E5] rounded-[4px] p-6 bg-white">
+          <p class="text-sm text-[#666666] mb-4">מעדיפים לכתוב? שלחו הודעה ישירות בוואטסאפ</p>
+          <a href="https://wa.me/972524778604" target="_blank" rel="noopener noreferrer"
+             aria-label="פתח שיחה בוואטסאפ עם Karber"
+             class="inline-flex items-center gap-3 bg-[#25D366] text-white font-bold
+                    px-6 py-3 rounded-[4px] hover:bg-[#1db954] transition-colors
+                    focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2">
+            <i data-lucide="message-circle" class="w-5 h-5" aria-hidden="true"></i>
+            שיחה בוואטסאפ
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main><!-- end #main-content -->
+
+
+<!-- ════════════════════════════
+     §8 FOOTER
+════════════════════════════ -->
+<footer class="bg-[#1A1A1A] text-white pt-16 pb-10" aria-label="כותרת תחתית">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+
+      <!-- Brand -->
+      <div>
+        <img src="images/logo.png" alt="Karber"
+             class="h-11 w-auto mb-4"
+             onerror="this.style.display='none'">
+        <p class="text-white/55 text-sm leading-relaxed max-w-xs">
+          ניקוי תעשייתי בפיקוח הנדסי. מעטפת שירות מלאה לתעשייה הכבדה והקלה.
+        </p>
+      </div>
+
+      <!-- Nav (no heading) -->
+      <nav aria-label="ניווט תחתון">
+        <ul class="space-y-3">
+          <li><a href="#about"    class="text-white/55 text-sm hover:text-white transition-colors">אודות</a></li>
+          <li><a href="#services" class="text-white/55 text-sm hover:text-white transition-colors">שירותים</a></li>
+          <li><a href="#results"  class="text-white/55 text-sm hover:text-white transition-colors">תוצאות</a></li>
+          <li><a href="#why"      class="text-white/55 text-sm hover:text-white transition-colors">למה KARBER</a></li>
+          <li><a href="#contact"  class="text-white/55 text-sm hover:text-white transition-colors">צרו קשר</a></li>
+          <li><a href="#accessibility" class="text-white/55 text-sm hover:text-white transition-colors">הצהרת נגישות</a></li>
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-5">צרו קשר</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href="tel:0524778604"
+               aria-label="התקשר עכשיו: 052-477-8604"
+               class="flex items-center gap-2 text-white/55 text-sm hover:text-white transition-colors">
+              <i data-lucide="phone" class="w-4 h-4 flex-shrink-0" aria-hidden="true"></i>
+              <span dir="ltr">052-477-8604</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info@karber.co.il"
+               class="flex items-center gap-2 text-white/55 text-sm hover:text-white transition-colors">
+              <i data-lucide="mail" class="w-4 h-4 flex-shrink-0" aria-hidden="true"></i>
+              <span dir="ltr">info@karber.co.il</span>
+            </a>
+          </li>
+          <li class="flex items-center gap-2 text-white/55 text-sm">
+            <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0" aria-hidden="true"></i>
+            <span>אזור פעילות: כל הארץ</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row
+                items-center justify-between gap-3">
+      <p class="text-white/35 text-sm">© 2026 Karber. כל הזכויות שמורות.</p>
+      <div class="flex items-center gap-1.5 text-white/30 text-xs">
+        <i data-lucide="shield" class="w-3 h-3" aria-hidden="true"></i>
+        <span>פיקוח הנדסי מלא</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════
+     ACCESSIBILITY STATEMENT
+════════════════════════════ -->
+<section id="accessibility" class="bg-[#FAFAFA] border-t border-[#E5E5E5] py-12"
+         aria-labelledby="a11y-statement-heading">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 id="a11y-statement-heading" class="text-xl font-bold text-[#1A1A1A] mb-5">הצהרת נגישות</h2>
+    <div class="space-y-4 text-[#666666] text-sm leading-relaxed">
+      <p>
+        האתר נבנה בהתאם לתקן הישראלי 5568 ברמה AA המבוסס על WCAG 2.1.
+        אנו פועלים להנגיש את האתר לכלל הציבור כולל אנשים עם מוגבלויות.
+      </p>
+      <p>האתר תומך ב:</p>
+      <ul class="list-disc list-inside space-y-1 pr-2">
+        <li>ניווט מלא באמצעות מקלדת</li>
+        <li>קוראי מסך (NVDA, JAWS, VoiceOver)</li>
+        <li>יחסי ניגודיות עומדים בדרישות AA</li>
+        <li>תוויות ותיאורים לכל האלמנטים האינטראקטיביים</li>
+        <li>הגדלת גופן וכלי נגישות מובנים</li>
+      </ul>
+      <p>
+        נתקלתם בבעיית נגישות? אנא פנו אלינו:
+        <a href="mailto:info@karber.co.il"
+           class="text-[#1A1A1A] font-medium underline underline-offset-2 hover:text-[#FFCA1E] transition-colors">
+          info@karber.co.il
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════
+     FLOATING WHATSAPP (bottom-left, RTL convention)
+════════════════════════════ -->
+<a href="https://wa.me/972524778604"
+   target="_blank" rel="noopener noreferrer"
+   aria-label="פתח צ'אט בוואטסאפ"
+   class="fixed bottom-6 left-6 z-50 w-14 h-14 bg-[#25D366] rounded-full
+          flex items-center justify-center shadow-lg
+          hover:scale-110 hover:bg-[#1db954] transition-all
+          focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
+  <i data-lucide="message-circle" class="w-7 h-7 text-white" aria-hidden="true"></i>
+</a>
+
+
+<!-- ════════════════════════════
+     ACCESSIBILITY WIDGET (bottom-right)
+════════════════════════════ -->
+<div id="a11y-widget" class="fixed bottom-6 right-6 z-50">
+
+  <button id="a11y-btn"
+          aria-label="תפריט נגישות"
+          aria-expanded="false"
+          aria-controls="a11y-panel"
+          class="w-12 h-12 bg-[#1A1A1A] text-white rounded-full
+                 flex items-center justify-center shadow-lg
+                 hover:bg-[#333333] transition-colors
+                 focus:outline-none focus:ring-2 focus:ring-[#FFCA1E] focus:ring-offset-2">
+    <i data-lucide="accessibility" class="w-6 h-6" aria-hidden="true"></i>
+  </button>
+
+  <div id="a11y-panel"
+       role="dialog"
+       aria-label="הגדרות נגישות"
+       aria-modal="false"
+       class="absolute bottom-14 right-0 bg-white border border-[#E5E5E5]
+              rounded-[4px] shadow-xl w-60 p-4">
+
+    <h2 class="font-bold text-sm text-[#1A1A1A] mb-3 pb-3 border-b border-[#E5E5E5]">
+      הגדרות נגישות
+    </h2>
+
+    <!-- Font size -->
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm text-[#1A1A1A]">גודל גופן</span>
+      <div class="flex items-center gap-2">
+        <button id="a11y-font-minus"
+                aria-label="הקטן גופן"
+                class="w-7 h-7 bg-[#FAFAFA] border border-[#E5E5E5] rounded-[4px]
+                       text-[#1A1A1A] font-bold text-base flex items-center justify-center
+                       hover:border-[#FFCA1E] transition-colors
+                       focus:outline-none focus:ring-2 focus:ring-[#FFCA1E]">−</button>
+        <span id="a11y-font-display" class="text-xs text-[#666666] w-8 text-center">100%</span>
+        <button id="a11y-font-plus"
+                aria-label="הגדל גופן"
+                class="w-7 h-7 bg-[#FAFAFA] border border-[#E5E5E5] rounded-[4px]
+                       text-[#1A1A1A] font-bold text-base flex items-center justify-center
+                       hover:border-[#FFCA1E] transition-colors
+                       focus:outline-none focus:ring-2 focus:ring-[#FFCA1E]">+</button>
+      </div>
+    </div>
+
+    <!-- Toggles -->
+    <button id="a11y-contrast-btn" role="switch" aria-checked="false"
+            class="a11y-toggle">
+      <span>ניגודיות גבוהה</span>
+      <span class="toggle-dot"></span>
+    </button>
+
+    <button id="a11y-links-btn" role="switch" aria-checked="false"
+            class="a11y-toggle">
+      <span>הדגשת קישורים</span>
+      <span class="toggle-dot"></span>
+    </button>
+
+    <button id="a11y-motion-btn" role="switch" aria-checked="false"
+            class="a11y-toggle">
+      <span>עצור אנימציות</span>
+      <span class="toggle-dot"></span>
+    </button>
+
+    <!-- Reset -->
+    <button id="a11y-reset"
+            class="w-full mt-1 py-2 px-3 text-xs text-[#666666] border border-[#E5E5E5]
+                   rounded-[4px] hover:border-[#FFCA1E] hover:text-[#1A1A1A] transition-colors
+                   focus:outline-none focus:ring-2 focus:ring-[#FFCA1E]">
+      אפס הגדרות
+    </button>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════
+     SCRIPTS
+════════════════════════════ -->
+<script>
+  lucide.createIcons();
+
+  // ── Hamburger + keyboard ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'סגור תפריט ניווט');
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'פתח תפריט ניווט');
+  }
+
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (mobileMenu.classList.contains('open')) { closeMenu(); hamburger.focus(); }
+      if (a11yPanel.classList.contains('open')) { closeA11y(); a11yBtn.focus(); }
+    }
+  });
+
+  // ── Scroll animations ──
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+  // ── Header shadow on scroll ──
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('shadow-md', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Accessibility widget ──
+  const a11yBtn   = document.getElementById('a11y-btn');
+  const a11yPanel = document.getElementById('a11y-panel');
+
+  let fontScale  = parseFloat(localStorage.getItem('a11y-font') || '1');
+  let contrast   = localStorage.getItem('a11y-contrast') === '1';
+  let links      = localStorage.getItem('a11y-links')    === '1';
+  let paused     = localStorage.getItem('a11y-pause')    === '1';
+
+  function applyA11y() {
+    document.documentElement.style.setProperty('--a11y-font-scale', fontScale);
+    document.getElementById('a11y-font-display').textContent = Math.round(fontScale * 100) + '%';
+
+    document.body.classList.toggle('high-contrast',    contrast);
+    document.body.classList.toggle('highlight-links',  links);
+    document.body.classList.toggle('pause-animations', paused);
+
+    const cBtn = document.getElementById('a11y-contrast-btn');
+    const lBtn = document.getElementById('a11y-links-btn');
+    const mBtn = document.getElementById('a11y-motion-btn');
+
+    cBtn.setAttribute('aria-checked', contrast.toString());
+    lBtn.setAttribute('aria-checked', links.toString());
+    mBtn.setAttribute('aria-checked', paused.toString());
+  }
+
+  // Restore on load
+  applyA11y();
+
+  function openA11y() {
+    a11yPanel.classList.add('open');
+    a11yBtn.setAttribute('aria-expanded', 'true');
+    document.getElementById('a11y-font-minus').focus();
+  }
+  function closeA11y() {
+    a11yPanel.classList.remove('open');
+    a11yBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  a11yBtn.addEventListener('click', () => {
+    a11yPanel.classList.contains('open') ? closeA11y() : openA11y();
+  });
+
+  // Close when clicking outside widget
+  document.addEventListener('click', e => {
+    const widget = document.getElementById('a11y-widget');
+    if (!widget.contains(e.target)) closeA11y();
+  });
+
+  document.getElementById('a11y-font-minus').addEventListener('click', () => {
+    fontScale = Math.max(0.8, parseFloat((fontScale - 0.1).toFixed(1)));
+    localStorage.setItem('a11y-font', fontScale);
+    applyA11y();
+  });
+
+  document.getElementById('a11y-font-plus').addEventListener('click', () => {
+    fontScale = Math.min(1.5, parseFloat((fontScale + 0.1).toFixed(1)));
+    localStorage.setItem('a11y-font', fontScale);
+    applyA11y();
+  });
+
+  document.getElementById('a11y-contrast-btn').addEventListener('click', () => {
+    contrast = !contrast;
+    localStorage.setItem('a11y-contrast', contrast ? '1' : '0');
+    applyA11y();
+  });
+
+  document.getElementById('a11y-links-btn').addEventListener('click', () => {
+    links = !links;
+    localStorage.setItem('a11y-links', links ? '1' : '0');
+    applyA11y();
+  });
+
+  document.getElementById('a11y-motion-btn').addEventListener('click', () => {
+    paused = !paused;
+    localStorage.setItem('a11y-pause', paused ? '1' : '0');
+    applyA11y();
+  });
+
+  document.getElementById('a11y-reset').addEventListener('click', () => {
+    fontScale = 1; contrast = false; links = false; paused = false;
+    ['a11y-font','a11y-contrast','a11y-links','a11y-pause'].forEach(k => localStorage.removeItem(k));
+    applyA11y();
+  });
+</script>
+
+</body>
+</html>
